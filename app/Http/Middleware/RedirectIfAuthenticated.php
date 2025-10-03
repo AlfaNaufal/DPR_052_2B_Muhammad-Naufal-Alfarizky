@@ -20,8 +20,24 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+
+            // Memeriksa apakah pengguna saat ini sudah login menggunakan guard yang sedang dicek.
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+
+                // Jika sudah login, ambil data pengguna yang sedang aktif.
+                $user = Auth::user();
+
+                // Jika role nya adlaah Admin
+                if ($user->role === 'Admin') {
+                    // Maka akan diarahkan ke halaman dashboard admin
+                    return redirect()->route('admin.dashboard');
+                }
+                
+                // Jika role nya adalah Public
+                if ($user->role === 'Public') {
+                    // Maka akan diarahkan ke halaman dashboard public
+                    return redirect()->route('public.dashboard');
+                }
             }
         }
 

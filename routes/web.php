@@ -33,19 +33,19 @@ Route::middleware('guest')->group(function () {
 
 // Rute untuk yang sudah login
 Route::middleware('auth')->group(function () {
-    // Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Rute khusus Admin
-    Route::middleware('role:Admin')->group(function () {
+    Route::middleware('role:Admin')->prefix('admin')->group(function () {
         Route::get('dashboard', function () {
-            return view('dashboard');
-        });
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
     });
 
     // Rute khusus User
     Route::middleware('role:Public')->group(function () {
-        Route::get('/dashboard', function () {
-            return 'Ini halaman user';
-        });
+        Route::get('dashboard', function () {
+            return view('public.dashboard');
+        })->name('public.dashboard');
     });
 });

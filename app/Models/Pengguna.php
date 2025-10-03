@@ -19,6 +19,10 @@ class Pengguna extends Model
         'password',
     ];
 
+    public function getAuthIdentifierName(){
+        return 'username';
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

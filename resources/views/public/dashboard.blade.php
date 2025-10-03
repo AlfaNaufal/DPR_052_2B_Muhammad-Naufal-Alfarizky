@@ -5,7 +5,7 @@
 
         <div class="card">
         <div class="card-header">
-            <h1 class="display-1">Dashboard Admin</h1>
+            <h1 class="display-1">Dashboard Pegawai</h1>
         </div>
         {{-- <div class="card-body">
             <h5 class="card-title">Selamat Datang, {{ auth()->user()->full_name }}!</h5>
