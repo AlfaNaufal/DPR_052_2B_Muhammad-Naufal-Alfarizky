@@ -20,7 +20,7 @@ class AnggotaDpr extends Model
         'gelar_belakang',
         'jabatan',
         'status_pernikahan',
-        // 'jumlah_anak',
+        'jumlah_anak',
     ];
 
     // mendefinisikan Relasi Many-to-many antara anggota dan komponen gaji 
@@ -33,7 +33,34 @@ class AnggotaDpr extends Model
         );
     }
 
-    // Membuat kolom atribut (kolom virtual) untuk menampilkan nominal takeHomePay (Gaji)
+    // membuat accessor (kolom atribut virtual) untuk mengambil semua komponen gaji
+    protected function semuaKomponenGaji(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $semuaKomponen = $this->komponenGaji;
+
+                if ($this->status_pernikahan == 'Kawin') {
+                    $tunjanganIstri = KomponenGaji::where('nama_komponen', 'Tunjangan Istri/Suami')->first();
+                    if ($tunjanganIstri) {
+                        $semuaKomponen->push($tunjanganIstri);
+                    }
+                }
+
+                if ($this->jumlah_anak > 0) {
+                    $tunjanganAnak = KomponenGaji::where('nama_komponen', 'Tunjangan Anak')->first();
+                    if ($tunjanganAnak) {
+                        $tunjanganAnak->nominal = $tunjanganAnak->nominal * min($this->jumlah_anak, 2);
+                        $semuaKomponen->push($tunjanganAnak);
+                    }
+                }
+
+                return $semuaKomponen;
+            }
+        );
+    }
+
+    // Membuat accessor (kolom atribut virtual) untuk menampilkan nominal takeHomePay (Gaji)
     protected function takeHomePay(): Attribute
     {
         return Attribute::make(

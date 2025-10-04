@@ -34,7 +34,7 @@
                             <th scope="col" class="px-6 py-3">Nama Lengkap</th>
                             <th scope="col" class="px-6 py-3">Jabatan</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            {{-- <th scope="col" class="px-6 py-3">Jumlah Anak</th> --}}
+                            <th scope="col" class="px-6 py-3">Jumlah Anak</th>
                             <th scope="col" class="px-6 py-3">Detail</th>
                             <th scope="col" class="px-6 py-3">Edit</th>
                             <th scope="col" class="px-6 py-3">Hapus</th>
@@ -48,7 +48,7 @@
                                 <td class="px-6 py-4">{{ $item->gelar_depan }} {{ $item->nama_depan }} {{ $item->nama_belakang }} {{ $item->gelar_belakang }}</td>
                                 <td class="px-6 py-4">{{ $item->jabatan }}</td>
                                 <td class="px-6 py-4">{{ $item->status_pernikahan }}</td>
-                                {{-- <td class="px-6 py-4">{{ $item->jumlah_anak }}</td> --}}
+                                <td class="px-6 py-4">{{ $item->jumlah_anak }}</td>
                                 <td class="px-6 py-4 space-x-2">
                                     <a href="{{ route('admin.anggota.show', ['anggota' => $item->id_anggota]) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                                 </td>

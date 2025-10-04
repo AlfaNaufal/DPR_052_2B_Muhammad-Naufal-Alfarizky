@@ -57,6 +57,7 @@ class AnggotaDprController extends Controller
             'gelar_belakang' => 'nullable|string|max:50',
             'jabatan' => 'required|in:Ketua,Wakil Ketua,Anggota',
             'status_pernikahan' => 'required|in:Kawin,Belum Kawin,Cerai Hidup,Cerai Mati',
+            'jumlah_anak' => 'required|integer|min:0',
         ]);
 
         // Membuat record baru di tabel 'anggota' menggunakan data yang sudah tervalidasi
@@ -95,6 +96,7 @@ class AnggotaDprController extends Controller
             'gelar_belakang' => 'nullable|string|max:50',
             'jabatan' => 'required|in:Ketua,Wakil Ketua,Anggota',
             'status_pernikahan' => 'required|in:Kawin,Belum Kawin,Cerai Hidup,Cerai Mati',
+            'jumlah_anak' => 'required|integer|min:0',
         ]);
 
         // Memperbarui record anggota dengan data yang sudah tervalidasi
