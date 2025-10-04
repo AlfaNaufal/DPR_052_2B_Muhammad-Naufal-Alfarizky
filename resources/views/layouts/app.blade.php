@@ -19,6 +19,7 @@
                 <div class="flex items-center space-x-4">
                     @if(auth()->user()->role == 'Admin')
                         <a href="{{ route('admin.dashboard') }}" class="text-gray-600 hover:text-gray-800">Dashboard</a>
+                        <a href="{{ route('admin.komponenGaji.index') }}" class="text-gray-600 hover:text-gray-800">Komponen Gaji</a>
                     @elseif(auth()->user()->role == 'Public')
                         <a href="{{ route('public.dashboard') }}" class="text-gray-600 hover:text-gray-800">Dashboard</a>
                     @endif

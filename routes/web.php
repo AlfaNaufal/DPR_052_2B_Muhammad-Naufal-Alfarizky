@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         // })->name('admin.dashboard');
         Route::get('/dashboard', [AnggotaDprController::class, 'index'])->name('dashboard');
         Route::resource('anggota', AnggotaDprController::class)->parameters(['anggota' => 'anggota']);
+        Route::resource('komponenGaji', KomponenGajiController::class);
         
     });
 
