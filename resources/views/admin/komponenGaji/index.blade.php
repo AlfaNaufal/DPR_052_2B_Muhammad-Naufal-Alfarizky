@@ -45,17 +45,17 @@
                             <td class="px-6 py-4">Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
                             <td class="px-6 py-4">{{ $item->satuan }}</td>
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-                            </td>
-                            <td class="px-6 py-4">
                                 <a href="{{ route('admin.komponenGaji.show', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                             </td>
                             <td class="px-6 py-4">
-                                <form action="#" method="POST" onsubmit="return confirm('Apakah Anda yakin?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-600 hover:underline p-0 bg-transparent">Hapus</button>
-                                </form>
+                                <a href="{{ route('admin.komponenGaji.edit', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-blue-600 hover:underline">Edit</a>
+                            </td>
+                            <td class="px-6 py-4">
+                                    <form action="{{ route('admin.komponenGaji.destroy', $item->id_komponen_gaji) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="font-medium text-red-600 hover:underline p-0 bg-transparent border-none">Hapus</button>
+                                    </form>
                             </td>
                         </tr>
                     @empty

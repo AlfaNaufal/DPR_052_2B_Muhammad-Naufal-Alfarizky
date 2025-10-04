@@ -14,7 +14,7 @@
             <dl class="space-y-4">
                 <div class="grid grid-cols-3 gap-4">
                     <dt class="text-sm font-medium text-gray-500">ID Komponen</dt>
-                    <dd class="text-sm text-gray-900 col-span-2">{{ $komponenGaji->id_komponen }}</dd>
+                    <dd class="text-sm text-gray-900 col-span-2">{{ $komponenGaji->id_komponen_gaji }}</dd>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
                     <dt class="text-sm font-medium text-gray-500">Nama Komponen</dt>

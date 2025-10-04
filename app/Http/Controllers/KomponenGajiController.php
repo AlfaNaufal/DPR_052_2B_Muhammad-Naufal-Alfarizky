@@ -13,7 +13,7 @@ class KomponenGajiController extends Controller
     public function index()
     {
         $komponenGaji = KomponenGaji::all();
-        return view('admin.komponenGaji.index', compact('komponenGaji'));
+        return view('admin.komponenGaji.index', ['komponenGaji' => $komponenGaji]);
     }
 
     /**
@@ -33,7 +33,7 @@ class KomponenGajiController extends Controller
             'nama_komponen' => 'required|string|max:100',
             'kategori' => 'required|in:Gaji Pokok,Tunjangan Melekat,Tunjangan Lain',
             'jabatan' => 'required|in:Ketua,Wakil Ketua,Anggota,Semua',
-            'nominal' => 'required|integer',
+            'nominal' => 'required',
             'satuan' => 'required|in:Bulan,Hari,Periode',
         ]);
 
@@ -48,23 +48,39 @@ class KomponenGajiController extends Controller
      */
     public function show(KomponenGaji $komponenGaji)
     {
-        return view('admin.komponenGaji.detail', compact('komponenGaji'));
+        return view('admin.komponenGaji.detail', ['komponenGaji' => $komponenGaji]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(KomponenGaji $komponenGaji)
     {
-        //
+        return view('admin.komponenGaji.edit', ['komponenGaji' => $komponenGaji]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, KomponenGaji $komponenGaji)
     {
-        //
+
+        // dd($request);
+        
+        $request->validate([
+            'nama_komponen' => 'required|string|max:100',
+            'kategori' => 'required|in:Gaji Pokok,Tunjangan Melekat,Tunjangan Lain',
+            'jabatan' => 'required|in:Ketua,Wakil Ketua,Anggota,Semua',
+            'nominal' => 'required',
+            'satuan' => 'required|in:Bulan,Hari,Periode',
+        ]);
+        
+        
+
+        $komponenGaji->update($request->all());
+
+        return redirect()->route('admin.komponenGaji.index')
+                         ->with('success', 'Komponen gaji berhasil diperbarui.');
     }
 
     /**
@@ -74,7 +90,7 @@ class KomponenGajiController extends Controller
     {
         $komponenGaji->delete();
 
-        return redirect()->route('admin.komponen_gaji')
+        return redirect()->route('admin.komponenGaji.index')
                          ->with('success', 'Komponen gaji berhasil dihapus.');
     }
 }
