@@ -46,9 +46,9 @@ class KomponenGajiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(KomponenGaji $komponenGaji)
     {
-        //
+        return view('admin.komponenGaji.detail', compact('komponenGaji'));
     }
 
     /**

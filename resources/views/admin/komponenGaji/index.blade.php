@@ -31,6 +31,7 @@
                         <th scope="col" class="px-6 py-3">Nominal</th>
                         <th scope="col" class="px-6 py-3">Satuan</th>
                         <th scope="col" class="px-6 py-3">Edit</th>
+                        <th scope="col" class="px-6 py-3">Detail</th>
                         <th scope="col" class="px-6 py-3">Hapus</th>
                     </tr>
                 </thead>
@@ -45,6 +46,9 @@
                             <td class="px-6 py-4">{{ $item->satuan }}</td>
                             <td class="px-6 py-4">
                                 <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ route('admin.komponenGaji.show', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                             </td>
                             <td class="px-6 py-4">
                                 <form action="#" method="POST" onsubmit="return confirm('Apakah Anda yakin?');">
