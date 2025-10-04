@@ -10,9 +10,29 @@ class AnggotaDprController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $anggota = AnggotaDpr::all();
+        // $anggota = AnggotaDpr::all();
+
+        // return view('admin.dashboard', compact('anggota'));
+
+        $query = AnggotaDpr::query();
+
+        // Memeriksa apakah ada input pencarian dari URL (dengan nama 'search')
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('nama_depan', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('nama_belakang', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('jabatan', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('id_anggota', $searchTerm);
+            });
+        }
+
+        // Eksekusi query dan ambil hasilnya
+        $anggota = $query->get();
 
         return view('admin.dashboard', compact('anggota'));
     }
@@ -42,7 +62,7 @@ class AnggotaDprController extends Controller
         // Membuat record baru di tabel 'anggota' menggunakan data yang sudah tervalidasi
         AnggotaDpr::create($request->all());
 
-        // Mengembalikan ke halaman utama admin dengan pesan sukses
+        // Mengalihkan kembali ke halaman utama admin dengan pesan sukses
         return redirect()->route('admin.dashboard')
                          ->with('success', 'Data anggota berhasil ditambahkan.');
     }
@@ -60,7 +80,7 @@ class AnggotaDprController extends Controller
      */
     public function edit(AnggotaDpr $anggota)
     {
-        //
+        return view('admin.anggota.edit', ['anggota' => $anggota]);
     }
 
     /**
@@ -68,7 +88,21 @@ class AnggotaDprController extends Controller
      */
     public function update(Request $request, AnggotaDpr $anggota)
     {
-        //
+        $request->validate([
+            'gelar_depan' => 'nullable|string|max:50',
+            'nama_depan' => 'required|string|max:100',
+            'nama_belakang' => 'nullable|string|max:100',
+            'gelar_belakang' => 'nullable|string|max:50',
+            'jabatan' => 'required|in:Ketua,Wakil Ketua,Anggota',
+            'status_pernikahan' => 'required|in:Kawin,Belum Kawin,Cerai Hidup,Cerai Mati',
+        ]);
+
+        // Memperbarui record anggota dengan data yang sudah tervalidasi
+        $anggota->update($request->all());
+
+        // Mengalihkan kembali ke halaman utama admin dengan pesan sukses
+        return redirect()->route('admin.dashboard')
+                         ->with('success', 'Data anggota berhasil diperbarui.');
     }
 
     /**
