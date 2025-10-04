@@ -10,10 +10,31 @@ class KomponenGajiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $komponenGaji = KomponenGaji::all();
-        return view('admin.komponenGaji.index', ['komponenGaji' => $komponenGaji]);
+        // $komponenGaji = KomponenGaji::all();
+        // return view('admin.komponenGaji.index', ['komponenGaji' => $komponenGaji]);
+
+        $query = KomponenGaji::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('id_komponen_gaji', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('nama_komponen', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('kategori', 'LIKE', "%{$searchTerm}%")
+                ->orWhere('jabatan', $searchTerm)
+                ->orWhere('nominal', $searchTerm)
+                ->orWhere('satuan', $searchTerm);
+            });
+        }
+
+        // Eksekusi query dan ambil hasilnya
+        $komponenGaji = $query->get();
+
+        return view('admin.komponenGaji.index', compact('komponenGaji'));
     }
 
     /**
