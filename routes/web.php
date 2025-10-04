@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnggotaDprController;
+use App\Http\Controllers\KomponenGajiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +28,6 @@ use App\Http\Controllers\AuthController;
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
-    // Jika perlu registrasi
-    // Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
-    // Route::post('register', [AuthController::class, 'register']);
 });
 
 // Rute untuk yang sudah login
@@ -36,10 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Rute khusus Admin
-    Route::middleware('role:Admin')->prefix('admin')->group(function () {
-        Route::get('dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+    Route::middleware('role:Admin')->prefix('admin')->name('admin.')->group(function () {
+        // Route::get('dashboard', function () {
+        //     return view('admin.dashboard');
+        // })->name('admin.dashboard');
+        Route::get('/dashboard', [AnggotaDprController::class, 'index'])->name('dashboard');
+        Route::resource('anggota', AnggotaDprController::class)->parameters(['anggota' => 'anggota']);
+        
     });
 
     // Rute khusus User
