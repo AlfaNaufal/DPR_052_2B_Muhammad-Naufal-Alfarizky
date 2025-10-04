@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnggotaDpr;
+use App\Models\Penggajian;
 use App\Models\KomponenGaji;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class PenggajianController extends Controller
@@ -24,7 +26,18 @@ class PenggajianController extends Controller
      */
     public function create()
     {
-        //
+        // $anggota = AnggotaDpr::all();
+        // $komponenGaji = KomponenGaji::all();
+        
+        // return view('admin.penggajian.tambah', compact('anggota', 'komponenGaji'));
+
+        $anggotaSudahPunyaGaji = Penggajian::pluck('id_anggota')->unique();
+
+        $anggota = AnggotaDpr::whereNotIn('id_anggota', $anggotaSudahPunyaGaji)->get();
+
+        $komponenGaji = KomponenGaji::all();
+        
+        return view('admin.penggajian.tambah', ['anggota'=>$anggota, 'komponenGaji'=>$komponenGaji]);
     }
 
     /**
@@ -32,7 +45,41 @@ class PenggajianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Melakukan validasi input
+        $request->validate([
+            'id_anggota' => 'required|exists:anggota,id_anggota',
+            'id_komponen_gaji' => 'required|array',
+            'id_komponen_gaji.*' => 'exists:komponen_gaji,id_komponen_gaji',
+        ]);
+        
+        $anggota = AnggotaDpr::find($request->id_anggota);
+        $komponenIds = $request->id_komponen_gaji;
+        $berhasilDitambahkan = 0;
+
+        // Makukan perulangan untuk setiap ID komponen yang dikirim dari checkbox
+        foreach ($komponenIds as $komponenId) {
+            $komponen = KomponenGaji::find($komponenId);
+
+            // Melakukan validasi jabatan dan duplikasi di dalam loop
+            if ($komponen && ($komponen->jabatan === 'Semua' || $komponen->jabatan === $anggota->jabatan)) {
+                
+                $isDuplicate = Penggajian::where('id_anggota', $anggota->id_anggota)
+                                          ->where('id_komponen_gaji', $komponenId)
+                                          ->exists();
+                
+                // melakukan penyimpanan data secara satu per satu jika tidak duplikat
+                if (!$isDuplicate) {
+                    Penggajian::create([
+                        'id_anggota' => $anggota->id_anggota,
+                        'id_komponen_gaji' => $komponenId,
+                    ]);
+                    $berhasilDitambahkan++;
+                }
+            }
+        }
+
+        return redirect()->route('admin.penggajian.index')
+                         ->with('success', "$berhasilDitambahkan komponen gaji berhasil ditambahkan untuk $anggota->nama_depan.");
     }
 
     /**

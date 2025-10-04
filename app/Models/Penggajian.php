@@ -11,5 +11,10 @@ class Penggajian extends Model
 
     protected $table = 'penggajian';
 
+    protected $fillable = [
+        'id_anggota',
+        'id_komponen_gaji'
+    ];
+
     public $timestamps = false;
 }
