@@ -5,13 +5,13 @@
 @section('content')
     <div class="container mx-auto">
 
-        // Bagian Header
+        {{-- Bagian Header --}}
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Kelola Komponen Gaji & Tunjangan</h1>
 
         </div>
 
-        // Notifikasi jika berhasil
+        {{-- Notifikasi jika berhasil --}}
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <span class="block sm:inline">{{ session('success') }}</span>
@@ -19,7 +19,7 @@
         @endif
 
         
-        // Bagian Utama
+        {{-- Bagian Utama --}}
         <div class="flex flex-col">
             <div class="flex justify-between my-4">
 
@@ -35,7 +35,7 @@
             </div>
 
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <table class="w-full text-sm text-left text-gray-700">
+                <table class="w-full text-sm text-center text-gray-700">
                     <thead class="text-xs text-white uppercase bg-gray-800">
                         <tr>
                             <th scope="col" class="px-6 py-3">ID</th>

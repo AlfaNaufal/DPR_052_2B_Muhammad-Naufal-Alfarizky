@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnggotaDprController;
-use App\Http\Controllers\KomponenGajiController;
 use App\Http\Controllers\PenggajianController;
+use App\Http\Controllers\KomponenGajiController;
+use App\Http\Controllers\Public\AnggotaController;
+use App\Http\Controllers\Public\PublicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,9 +50,15 @@ Route::middleware('auth')->group(function () {
     });
 
     // Rute khusus User
-    Route::middleware('role:Public')->group(function () {
-        Route::get('dashboard', function () {
-            return view('public.dashboard');
-        })->name('public.dashboard');
+    Route::middleware('role:Public')->prefix('public')->name('public.')->group(function () {
+        // Route::get('dashboard', function () {
+        //     return view('public.dashboard');
+        // })->name('public.dashboard');
+
+        Route::get('/dashboard', [PublicController::class, 'index'])->name('dashboard');
+
+        Route::get('/anggota/{anggota}', [PublicController::class, 'detailAnggota'])->name('anggota.detail');
+        Route::get('/penggajian', [PublicController::class, 'tampilPenggajian'])->name('penggajian.index');
+        Route::get('/penggajian/{anggota}', [PublicController::class, 'detailPenggajian'])->name('penggajian.detail');
     });
 });

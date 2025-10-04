@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-
 class AuthController extends Controller
 {
     // Menampilkan halaman login
@@ -29,39 +26,13 @@ class AuthController extends Controller
             if (Auth::user()->role === 'Admin') {
                 return redirect()->intended('/admin/dashboard');
             }
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/public/dashboard');
         }
 
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
         ])->onlyInput('username');
     }
-
-
-    // public function login(Request $request){
-
-    //     $request->validate([
-    //     'username'=>'required',
-    //     'password'=>'required'
-    //     ]);
-
-    //     $user = Pengguna::where('username', '=', $request->username)->first();
-
-    //     if($user){
-    //         if(Hash::check($request->password, $user->password)){
-    //             $request->session()->put('loginId', $user->user_id);
-    //             return redirect('dashboard');
-    //         }else{
-    //             return back()->with('fail', 'Password Salah');
-                
-    //         }
-    //     }else{
-    //         return back()->with('fail', 'Akun Tidak Ada');
-
-    //     }
-
-    // }
-
 
     // Proses logout
     public function logout(Request $request)

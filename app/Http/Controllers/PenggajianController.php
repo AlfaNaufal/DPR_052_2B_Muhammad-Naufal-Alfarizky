@@ -6,7 +6,6 @@ use App\Models\AnggotaDpr;
 use App\Models\Penggajian;
 use App\Models\KomponenGaji;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class PenggajianController extends Controller
