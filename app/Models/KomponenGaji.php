@@ -20,4 +20,14 @@ class KomponenGaji extends Model
         'nominal',
         'satuan',
     ];
+
+    // mendefinisikan Relasi Many-to-many antara anggota dan komponen gaji
+    public function AnggotaDpr(){
+        return $this->belongsToMany(
+            AnggotaDpr::class,
+            'penggajian',
+            'id_komponen_gaji',
+            'id_anggota'
+        );
+    }
 }

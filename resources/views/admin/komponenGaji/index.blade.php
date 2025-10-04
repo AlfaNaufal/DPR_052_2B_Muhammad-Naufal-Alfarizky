@@ -4,19 +4,22 @@
 
 @section('content')
     <div class="container mx-auto">
-        {{-- Header Halaman --}}
+
+        // Bagian Header
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Kelola Komponen Gaji & Tunjangan</h1>
 
         </div>
 
-        {{-- Notifikasi Sukses --}}
+        // Notifikasi jika berhasil
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <span class="block sm:inline">{{ session('success') }}</span>
             </div>
         @endif
+
         
+        // Bagian Utama
         <div class="flex flex-col">
             <div class="flex justify-between my-4">
 
@@ -31,7 +34,6 @@
                 
             </div>
 
-            {{-- Container untuk Tabel --}}
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <table class="w-full text-sm text-left text-gray-700">
                     <thead class="text-xs text-white uppercase bg-gray-800">
@@ -60,7 +62,7 @@
                                     <a href="{{ route('admin.komponenGaji.show', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('admin.komponenGaji.edit', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-blue-600 hover:underline">Edit</a>
+                                    <a href="{{ route('admin.komponenGaji.edit', ['komponenGaji' => $item->id_komponen_gaji]) }}" class="font-medium text-yellow-600 hover:underline">Edit</a>
                                 </td>
                                 <td class="px-6 py-4">
                                         <form action="{{ route('admin.komponenGaji.destroy', $item->id_komponen_gaji) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">

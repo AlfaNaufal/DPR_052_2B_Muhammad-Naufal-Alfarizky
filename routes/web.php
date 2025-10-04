@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnggotaDprController;
 use App\Http\Controllers\KomponenGajiController;
+use App\Http\Controllers\PenggajianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AnggotaDprController::class, 'index'])->name('dashboard');
         Route::resource('anggota', AnggotaDprController::class)->parameters(['anggota' => 'anggota']);
         Route::resource('komponenGaji', KomponenGajiController::class)->parameters(['komponenGaji' => 'komponenGaji']);
+        Route::resource('penggajian', PenggajianController::class);
         
     });
 
