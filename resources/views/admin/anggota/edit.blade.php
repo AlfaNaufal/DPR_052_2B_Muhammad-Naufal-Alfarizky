@@ -7,10 +7,9 @@
     <div class="bg-white p-8 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold mb-6 text-center">Edit Data Anggota</h1>
 
-        {{-- Form akan dikirim ke route 'admin.anggota.update' menggunakan metode PUT --}}
         <form action="{{ route('admin.anggota.update', $anggota->id_anggota) }}" method="POST">
             @csrf
-            @method('PUT') {{-- Wajib untuk proses update --}}
+            @method('PUT')
 
             <div class="space-y-4">
                 {{-- Gelar Depan --}}

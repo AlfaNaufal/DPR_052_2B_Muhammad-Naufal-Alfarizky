@@ -5,18 +5,15 @@
 @section('content')
     <div class="container mx-auto px-4 py-8 max-w-4xl">
 
-        {{-- KARTU DATA DIRI --}}
         <div class="bg-white rounded-lg shadow-md">
-            {{-- Header Kartu --}}
             <div class="bg-gray-800 text-white p-4 rounded-t-lg">
                 <h4 class="text-xl font-bold">Data Diri: {{ $anggota->nama_depan }} {{ $anggota->nama_belakang }}</h4>
             </div>
             
-            {{-- Body Kartu --}}
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                     
-                    {{-- Kolom Kiri: Informasi Personal --}}
+                    {{-- Kolom Kiri --}}
                     <div>
                         <h5 class="font-bold text-lg mb-3 border-b pb-2">Informasi Personal</h5>
                         <dl class="space-y-4">
@@ -35,7 +32,7 @@
                         </dl>
                     </div>
 
-                    {{-- Kolom Kanan: Informasi Keluarga --}}
+                    {{-- Kolom Kanan --}}
                     <div>
                         <h5 class="font-bold text-lg mb-3 border-b pb-2">Informasi Keluarga</h5>
                         <dl class="space-y-4">
@@ -53,7 +50,6 @@
             </div>
         </div>
 
-        {{-- Tombol Kembali --}}
         <div class="mt-8">
             <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 shadow">
                 &larr; Kembali ke Dashboard

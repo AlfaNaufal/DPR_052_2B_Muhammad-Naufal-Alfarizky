@@ -52,7 +52,7 @@ class AnggotaDprController extends Controller
      */
     public function show(AnggotaDpr $anggota)
     {
-        //
+        return view('admin.anggota.detail', compact('anggota'));
     }
 
     /**

@@ -37,7 +37,7 @@
                                 <td class="px-6 py-4">{{ $item->status_pernikahan }}</td>
                                 {{-- <td class="px-6 py-4">{{ $item->jumlah_anak }}</td> --}}
                                 <td class="px-6 py-4 space-x-2">
-                                    <a href="#" class="font-medium text-blue-600 hover:underline">Detail</a>
+                                    <a href="{{ route('admin.anggota.show', ['anggota' => $item->id_anggota]) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                                 </td>
 
                                 <td class="px-6 py-4 space-x-2">
