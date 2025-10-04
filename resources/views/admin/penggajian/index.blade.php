@@ -50,10 +50,14 @@
                                     <a href="{{ route('admin.penggajian.show', $anggota->id_anggota) }}" class="font-medium text-blue-600 hover:underline">Detail</a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-yellow-600 hover:underline">Edit</a>
+                                    <a href="{{ route('admin.penggajian.edit', $anggota->id_anggota) }}" class="font-medium text-yellow-600 hover:underline">Edit</a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-red-600 hover:underline">Delete</a>
+                                    <form action="{{ route('admin.penggajian.destroy', $anggota->id_anggota) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="font-medium text-red-600 hover:underline p-0 bg-transparent border-none">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty

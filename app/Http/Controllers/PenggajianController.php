@@ -95,24 +95,47 @@ class PenggajianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_anggota)
     {
-        //
+        $anggota = AnggotaDpr::findOrFail($id_anggota);
+
+        $semuaKomponenGaji = KomponenGaji::all();
+
+        $komponenDimiliki = $anggota->komponenGaji()->pluck('penggajian.id_komponen_gaji')->toArray();
+
+        return view('admin.penggajian.edit', compact('anggota', 'semuaKomponenGaji', 'komponenDimiliki'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id_anggota)
     {
-        //
+        $request->validate([
+            'id_komponen_gaji' => 'nullable|array',
+            'id_komponen_gaji.*' => 'exists:komponen_gaji,id_komponen_gaji',
+        ]);
+
+        $anggota = AnggotaDpr::findOrFail($id_anggota);
+        
+        $komponenIds = $request->input('id_komponen_gaji', []);
+
+        $anggota->komponenGaji()->sync($komponenIds);
+
+        return redirect()->route('admin.penggajian.index')
+                         ->with('success', "Data komponen gaji untuk $anggota->nama_depan berhasil diupdate.");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id_anggota)
     {
-        //
+        $anggota = AnggotaDpr::findOrFail($id_anggota);
+
+        $anggota->komponenGaji()->detach();
+
+        return redirect()->route('admin.penggajian.index')
+                         ->with('success', "Semua data komponen gaji untuk $anggota->nama_depan berhasil dihapus.");
     }
 }

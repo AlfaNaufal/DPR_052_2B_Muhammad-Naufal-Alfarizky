@@ -8,21 +8,20 @@
         
         <div class="p-6 border-b">
             <h1 class="text-2xl font-bold text-gray-800">
-                Detail Gaji: {{ $anggota->nama_depan }} {{ $anggota->nama_belakang }}
+                Detail Gaji {{ $anggota->nama_depan }} {{ $anggota->nama_belakang }}
             </h1>
-            <p class="text-gray-600 mt-1">Jabatan: {{ $anggota->jabatan }}</p>
+            <p class="text-gray-600 mt-1">jabatan: {{ $anggota->jabatan }}</p>
         </div>
 
         <div class="p-6">
             <h2 class="text-xl font-semibold text-gray-700 mb-4">Rincian Komponen Gaji</h2>
             <div class="border rounded-lg overflow-hidden">
-                <table class="w-full text-sm text-left text-gray-700">
+                <table class="w-full text-sm text-center text-gray-700">
                     <thead class="text-xs text-white uppercase bg-gray-800">
                         <tr>
                             <th scope="col" class="px-6 py-3">Nama Komponen</th>
                             <th scope="col" class="px-6 py-3">Kategori</th>
                             <th scope="col" class="px-6 py-3">Nominal</th>
-                            <th scope="col" class="px-6 py-3">Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,14 +30,6 @@
                             <td class="px-6 py-4 font-medium text-gray-900">{{ $komponen->nama_komponen }}</td>
                             <td class="px-6 py-4">{{ $komponen->kategori }}</td>
                             <td class="px-6 py-4">Rp {{ number_format($komponen->nominal, 0, ',', '.') }}</td>
-                            <td class="px-6 py-4">
-                                {{-- <form action="{{ route('admin.penggajian.destroy', $komponen->pivot->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus komponen ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-600 hover:underline p-0 bg-transparent border-none">Hapus</button>
-                                </form> --}}
-                                Delete
-                            </td>
                         </tr>
                         @empty
                          <tr>
